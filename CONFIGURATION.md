@@ -1,4 +1,4 @@
-# ZG ZoneLag 4.3.1 — TOML / Configuración
+# ZoneLag 4.3.1 — TOML / Configuración
 
 Generated server file / Archivo generado del servidor: `config/ZONEMODS/zonelag/ajustes.toml`. `/zonelag reload` validates a whole snapshot; changing `login.activo` or `login.premium_automatico` requires restart. / La recarga valida el archivo completo; cambiar activación de login o premium requiere reinicio. Back up before editing / Haz copia antes de editar.
 

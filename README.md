@@ -1,4 +1,4 @@
-# ZG ZoneLag — server 4.5.1 r2 / client 2.0.3
+# ZoneLag — server 4.5.1 r2 / client 2.0.3
 
 ## Update / Actualización — 2026-10-17
 

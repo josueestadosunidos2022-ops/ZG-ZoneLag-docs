@@ -1,4 +1,4 @@
-# ZG ZoneLag — compatibility / Compatibilidad
+# ZoneLag — compatibility / Compatibilidad
 
 ## Beta pair / Pareja Beta — server 4.3.1 + client 2.0.3
 

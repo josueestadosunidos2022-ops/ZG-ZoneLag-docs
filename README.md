@@ -1,42 +1,32 @@
-# ZoneLag — server 4.5.1 r2 / client 2.0.3
-
-## Update / Actualización — 2026-10-17
-
-Selected version / Versión seleccionada: **server 4.5.1**. New file availability depends on CurseForge approval / La disponibilidad de los archivos nuevos depende de su aprobación en CurseForge.
-
-See [changes, exact files and installation](UPDATES-2026-10-17.md) / Consulta [cambios, archivos e instalación](UPDATES-2026-10-17.md). Preserve the world and TOML files / Conserva mundo y TOML.
-
-## Español
-
-ZoneLag para Minecraft 1.20.1 / Forge 47.x controla limpieza de objetos, pausa de IA a distancia, tickets de chunks persistentes y expulsión por inactividad. El servidor incluye una puerta de inicio de sesión; **ZoneLag Client** presenta el libro de registro cuando se usa esa puerta. El código de autentificación y la decisión de acceso se ejecutan en el servidor.
-
-### Instalación y compatibilidad
-
-Descarga **ZoneLag Server 4.5.1 r2** y **ZoneLag Client 2.0.3** desde el **mismo proyecto de CurseForge**. Instala el servidor con **ZoneCore 2.1.3+**. Instala el cliente 2.0.3 en los jugadores si usas el login propio de ZoneLag. No instales el JAR servidor en clientes. Si además instalas **ZoneLoginSecurity**, este pasa a ser la autoridad de las cuentas y utiliza su propio cliente de login; ZoneLag conserva limpieza, IA, chunks y AFK. Antes de cambiar de sistema de cuentas, haz copia de seguridad y sigue la guía de migración de ZoneLoginSecurity. ZoneLag bloquea la reactivación del login antiguo si encuentra la marca de migración sin ZoneLoginSecurity.
-
-### Comandos
-
-| Comando | Uso |
-| --- | --- |
-| `/zonelag estado` | Estado de IA, chunks, AFK y login |
-| `/zonelag reload` | Recarga `ajustes.toml`; activar/desactivar login y premium exige reinicio |
-| `/zonelag limpiar` | Ejecuta limpieza manual |
-| `/zonelag guardarcuentas` | Recuperación solo desde consola cuando ZoneLag administra las cuentas |
-| `/afk` | Activa/desactiva exención de expulsión por inactividad para la sesión |
-
-Permisos: `zonelag.admin` para administración y `zonelag.afk` para `/afk`. El permiso AFK no activa el modo automáticamente y no persiste entre conexiones. Configura `config/ZONEMODS/zonelag/ajustes.toml`; consulta [todas las claves](CONFIGURATION.md) y la [pareja de versiones](RELEASES.md). Nunca publiques `cuentas.json`, sus respaldos ni claves privadas.
+# ZoneLag 4.6.1
 
 ## English
 
-ZoneLag for Minecraft 1.20.1 / Forge 47.x controls dropped-item cleanup, distance-based AI pausing, persistent chunk tickets, and idle kicks. The server includes a login gate; **ZoneLag Client** displays the registration book when that gate is used. Authentication and access decisions run on the server.
+Server administration and configurable cleanup/lag-management utilities, with the existing ZoneCore integration. This publishes the current protected 4.6.1 server build. It does not require a new dedicated client file; keep the existing compatible ZoneLag Client. Preserve configuration and account/player data. No measured TPS improvement is claimed by this release.
 
-### Installation and compatibility
+## Español
 
-Download **ZoneLag Server 4.5.1 r2** and **ZoneLag Client 2.0.3** from this **one CurseForge project**. The server requires **ZoneCore 2.1.3+**. Install client 2.0.3 for players when using ZoneLag's own login. Never install the server JAR on clients. With **ZoneLoginSecurity**, that mod becomes the account authority and uses its own login client; ZoneLag still handles cleanup, AI, chunks and AFK. Back up account data and follow ZoneLoginSecurity migration instructions before changing account systems. ZoneLag refuses to reactivate its old login if it finds a migration marker without ZoneLoginSecurity.
+Administración, limpieza configurable y utilidades de gestión de carga del servidor, con integración ZoneCore. Se publica la compilación actual de servidor 4.6.1 protegida. No necesita nuevo JAR dedicado de cliente: conserva ZoneLag Client compatible. Mantén configuración, cuentas y datos de jugadores. No se afirma una mejora de TPS medida por esta publicación.
 
-### Commands
 
-`/zonelag estado` shows status; `/zonelag reload` reloads TOML, while login and premium activation changes require restart. `/zonelag limpiar` runs cleanup; `/zonelag guardarcuentas` is a console-only recovery command when ZoneLag owns accounts. `/afk` toggles the idle-kick exemption for the current session. Permission nodes: `zonelag.admin`, `zonelag.afk`. See [all TOML keys](CONFIGURATION.md) and [release compatibility](RELEASES.md). Never publish account files, backups or private keys.
+| Side / Lado | Version | File |
+|---|---|---|
+| server | 4.6.1 | `zonelag-4.6.1-protected.jar` |
 
-© 2026 Elgochogms. All rights reserved for this edition. This repository contains documentation and a project avatar only; it does not contain mod source code, private obfuscation mappings or server data. Earlier versions' valid licenses remain unaffected.
+## Dependencies / Dependencias
 
+- **server**: zonecore: Required Dependency ([2.1.0,))
+
+## Installation / Instalación
+
+Install only the file for each side. Never mix two versions or both side distributions in one mods folder. Back up the world and preserve TOML/player data. Dedicated-server-only mods do not belong in a client modpack.
+
+Instala solo el archivo del lado correspondiente. No mezcles versiones ni ambos JAR en una carpeta mods. Respalda mundo y conserva TOML/progreso. Los mods exclusivos de servidor no van en el modpack de cliente.
+
+Protected public files retain features without distributing private source, mappings or production configuration/account data. File/resources/shared schemas and isolated server startup/clean save were checked; no new GUI/full-modpack or live multiplayer test was performed. File availability depends on CurseForge approval.
+
+Los archivos públicos conservan funciones con protección, sin fuentes, mappings ni datos privados. Se verificaron archivos/esquemas y arranque/cierre local aislado; no una nueva prueba gráfica o multijugador real. Disponibilidad sujeta a aprobación de CurseForge.
+
+## Ownership / Titularidad
+
+Original ZONE code and artwork © Elgochogms. All Rights Reserved. Public documentation repository only; source and mappings remain private.

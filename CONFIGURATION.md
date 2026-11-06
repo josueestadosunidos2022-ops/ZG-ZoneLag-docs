@@ -1,17 +1,32 @@
-# ZoneLag 4.3.1 — TOML / Configuración
+# ZoneLag — Configuration / Configuración (2026-11-06)
 
-Generated server file / Archivo generado del servidor: `config/ZONEMODS/zonelag/ajustes.toml`. `/zonelag reload` validates a whole snapshot; changing `login.activo` or `login.premium_automatico` requires restart. / La recarga valida el archivo completo; cambiar activación de login o premium requiere reinicio. Back up before editing / Haz copia antes de editar.
+| Side / Lado | Version / Versión |
+|---|---|
+| Server / Servidor | 4.6.3 |
+| Client / Cliente — retained / conservado | 2.0.3 |
 
-| Group / Grupo | Keys and defaults / Claves y valores iniciales | Effect / Efecto |
-| --- | --- | --- |
-| `limpieza` | `activa=true`, `intervalo_segundos=300`, `aviso_segundos=30`, `mensaje=...` | Dropped-item cleanup and warning / Limpieza y aviso; interval must exceed warning. |
-| `limpieza` | `objetos_vanilla=true`, `objetos_mods=true`, `objetos_con_nombre=true`, `edad_minima_segundos=0`, `mods_excluidos=[]` | Choose affected ground items; does not delete inventories or blocks / Filtra objetos en el suelo. |
-| `ia` | `activa=true`, `distancia_bloques=10`, `afectar_vanilla=true`, `afectar_mods=true`, `mods_excluidos=[]` | Pause distant mobs without saving permanent `NoAI` / Pausa IA a distancia. |
-| `chunks` | `activo=true`, `distancia_bloques=30`, `suspender_forzados_vanilla=true`, `suspender_cargadores_forge=true`, `suspender_otros_persistentes=false`, `tickets_excluidos=[]` | Suspends selected persistent tickets outside range; temporary tickets remain active / Suspende cargadores persistentes seleccionados. |
-| `afk` | `activo=true`, `tiempo_segundos=600`, `afectar_operadores=true`, `afectar_espectadores=true` | Idle kick policy / Expulsión por inactividad. `/afk` requires `zonelag.afk` and is session-only. |
-| `login` | `activo=true`, `premium_automatico=true`, `plazo_segundos=120`, `intentos=5`, `longitud_minima=8` | ZoneLag's own login when ZoneLoginSecurity is absent / Login propio si falta ZoneLoginSecurity. |
+## Cleanup / Limpieza
 
-Limits from source / Límites del código: `limpieza.intervalo_segundos` 2–86400; `aviso_segundos` 0–3600 and less than interval; `edad_minima_segundos` 0–86400; `ia.distancia_bloques` 1–256; `chunks.distancia_bloques` 1–1024; `afk.tiempo_segundos` 5–86400; `login.plazo_segundos` 15–600; `login.intentos` 1–20; `login.longitud_minima` 8–32. Exclusion lists accept up to 256 identifiers. / Las listas de exclusión admiten hasta 256 identificadores.
+File: `config/ZONEMODS/zonelag/ajustes.toml`. Keep the existing `[limpieza]` section; do not duplicate it. / Conserva la sección existente sin duplicarla.
 
-`limpieza.mensaje` may use `{segundos}`. The standalone login stores salted password hashes in `config/ZONEMODS/zonelag/cuentas.json` with a `.bak` backup; those are **private player data**, not configuration to share. When ZoneLoginSecurity owns accounts, follow its SQLite/TLS migration guide instead. / `cuentas.json` y su respaldo son datos privados; no los compartas. El login de ZoneLoginSecurity usa su propia migración.
+```toml
+[limpieza]
+max_objetos_por_tick = 128
+presupuesto_microsegundos = 2000
+```
 
+Quantity range 1–4096; time range 100–10000 microseconds (2000 =2 ms). The quantity counts reviewed entries, including already-removed references. The time budget is approximate and cannot interrupt an external callback. Initial entity capture is not bounded by this removal budget. / Rango de entradas1–4096 y tiempo100–10000µs. Cuenta entradas revisadas; presupuesto aproximado, no interrumpe callbacks y no limita la captura inicial.
+
+Existing interval, activation, warning and `zonelag.admin` permission remain. `aviso_segundos=0` disables the advance warning. Custom `limpieza.mensaje` is retained and colored; old default wording is modernized at display time without rewriting the TOML. / Conserva intervalo, activación, permiso y aviso; cero lo desactiva. Mensaje personalizado conservado y coloreado, sin reescribir TOML.
+
+`/zonelag reload` rejects invalid replacements while keeping active configuration and pending work. Lower limits distribute removal over more ticks. `/zonelag estado` reports loaded sweep progress, limits and persistence errors. / Recarga inválida conserva configuración y trabajo; límites menores reparten trabajo. Estado informa progreso, límites y fallos.
+
+## Persistent state / Estado persistente
+
+Keep `<mundo>/data/zonelag-cleanup-epoch.txt`. It coordinates the cleanup mark across dimensions and restarts. It is written before removal begins; a persistence error blocks a new cleanup. Do not delete or edit it casually. / Conserva la marca: coordina dimensiones y reinicios, se guarda antes de borrar; un fallo bloquea limpieza nueva.
+
+All loaded `ItemEntity` and subclasses are eligible, including named/modded/recent drops present when the sweep starts. Older filters for age/name/mod no longer restrict4.6.x cleanup. Inventories, chests, blocks and entities not derived from ItemEntity are outside this cleanup. / Incluye objetos cargados vanilla/mod de ItemEntity incluso con nombre; filtros antiguos no limitan4.6.x. No incluye inventarios, cofres, bloques ni entidades ajenas a ItemEntity.
+
+Expired items in unloaded chunks are removed on entity load; chunks are not forced and their stored objects do not physically disappear from disk at the exact interval. / Lo descargado se elimina al cargar entidades; no fuerza chunks ni borra físicamente del disco al vencer el intervalo.
+
+[Current release / Entrega actual](RELEASE-2026-11-06.md) · [README](README.md).
